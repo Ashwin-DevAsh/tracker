@@ -19,7 +19,7 @@ class Otp{
     }
 
 
-    checkOtpExist = async (email)=>{
+    checkOtpDataExist = async (email)=>{
         try{
             const value = JSON.parse(await client.get(email));
             if(!value){
@@ -35,7 +35,7 @@ class Otp{
     }
 
 
-    deleteOtp = async (email)=>{
+    deleteOtpData = async (email)=>{
         try{
             await client.flushall(email)
             return true;
