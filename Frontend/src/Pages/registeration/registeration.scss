@@ -1,0 +1,160 @@
+$primary-color: #1c6b91;
+
+.registeration-container {
+  min-height: 100vh;
+  height: 900px;
+  display: flex;
+  overflow: auto;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+
+  .header {
+    height: 100px;
+    right: 0;
+    left: 0;
+    /* background-color: black; */
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    top: 0;
+    align-items: center;
+    padding: 10px;
+
+    .logo {
+      height: 50px;
+      margin-left: 20px;
+    }
+  }
+
+  .login-container,
+  .signup-container {
+    // height: 500px;
+    width: 400px;
+    background-color: black;
+    border-radius: 11px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    // box-shadow: 19px 19px 38px #dedede, -19px -19px 38px #ffffff;
+
+    h4 {
+      font-weight: 100;
+      opacity: 0.7;
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    .email {
+      margin-top: 40px;
+    }
+    .password {
+      margin-top: 25px;
+    }
+
+    #forgot-password {
+      font-size: 18px;
+      margin-top: 20px;
+      color: $primary-color;
+      cursor: pointer;
+    }
+
+    #login-button,
+    #signup-button {
+      height: 45px;
+      margin-top: 30px;
+    }
+
+    #underline {
+      margin-top: 25px;
+      overflow: hidden;
+      color: rgba(136, 136, 136, 0.933);
+      text-align: center;
+    }
+
+    #underline:before,
+    #underline:after {
+      background-color: rgba(136, 136, 136, 0.933);
+      content: "";
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      width: 50%;
+    }
+
+    #underline:before {
+      right: 0.5em;
+      margin-left: -50%;
+    }
+
+    #underline:after {
+      left: 0.5em;
+      margin-right: -50%;
+    }
+
+    .signup-link,
+    .signin-link {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      h4 {
+        font-weight: bold;
+        font-size: 15px;
+        strong {
+          color: $primary-color;
+        }
+        strong {
+          text-decoration: none;
+
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .signup-container {
+    .email {
+      margin-top: 25px;
+    }
+    .name {
+      margin-top: 40px;
+    }
+    .phone-number {
+      margin-top: 25px;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      list-style-type: none;
+      li {
+        font-weight: 200;
+        margin: 10px;
+        opacity: 0.5;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    }
+
+    h5 {
+      font-weight: 200;
+      margin: 10px;
+      opacity: 0.5;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  }
+}

@@ -3,14 +3,15 @@ const client = require('./Cache/redis')
 class Otp{
 
     insertOtp = async (email,otp,otpFor,user)=>{
+        console.log(email)
         try{
-            const value = {
+            const value = JSON.stringify({
                 otp,
                 otpFor,
                 user,
                 tries:0
-            }
-            await client.set(email, JSON.stringify(value));
+            })
+            await client.set(email, value);
             return true;
         }catch(e){
             console.log(e)
@@ -22,6 +23,7 @@ class Otp{
     checkOtpDataExist = async (email)=>{
         try{
             const value = JSON.parse(await client.get(email));
+            console.log(value)
             if(!value){
                 return null
             }
@@ -40,6 +42,7 @@ class Otp{
             await client.flushall(email)
             return true;
         }catch(e){
+            console.log(e)
             return false
         }
     }

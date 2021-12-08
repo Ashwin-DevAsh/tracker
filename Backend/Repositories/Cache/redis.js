@@ -1,7 +1,7 @@
 const redis     = require('async-redis')
 const client    = redis.createClient({
     port      : 6379,              
-    host      : 'redis',      
+    host      : process.env.REDIS_URL,      
     password  : process.env.REDIS_PASSWORD,
 });
 

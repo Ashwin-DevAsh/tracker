@@ -11,13 +11,14 @@ class Users{
         var user = await postgres.query(
           "select id,name,phone_number,email from users"
         );
+        user = user.rows[0];
         postgres.release();
-        user = products.rows[0];
         return user;
       } catch (e) {
         postgres.release();
         console.log(e);
-        return [];
+        throw Error(e.message);
+
       }
     };
 
@@ -25,32 +26,31 @@ class Users{
         var postgres = await this.pool.connect();
         try {
           var user = await postgres.query(
-            "select * from users where email is $1",[email]
+            "select * from users where email = $1",[email]
           );
+          user = user.rows[0];
           postgres.release();
-          user = products.rows[0];
           return user;
         } catch (e) {
           postgres.release();
           console.log(e);
-          return [];
+          throw Error(e.message);
+
         }
       };
 
     
-    insertUser = async (id,name,phoneNumber,email,password) => {
+    insertUser = async (name,phoneNumber,email,password) => {
         var postgres = await this.pool.connect();
         try {
-          var user = await postgres.query(
-            `insert into users(id,name,email,phone_number,password) values($1,$2,$3,$4,$5)`,[id,name,phoneNumber,email,password]
+          await postgres.query(
+            `insert into users(name,email,phone_number,password) values($1,$2,$3,$4)`,[name,email,phoneNumber,password]
           );
           postgres.release();
-          user = products.rows[0];
-          return user;
         } catch (e) {
           postgres.release();
           console.log(e);
-          return [];
+          throw Error(e.message);
         }
       };   
 }

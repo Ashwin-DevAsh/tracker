@@ -26,7 +26,7 @@ module.exports = class EmailService{
           console.log(result);
           return true;
         } catch (e) {
-          console.log(e);
+          // console.log(e);
           return false;
         }
       }

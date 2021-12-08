@@ -1,11 +1,12 @@
 require("dotenv").config({ path: "./env/.env" });
+
 //
-const express = require("express");
+const app = require("express")();
 const bodyParser = require("body-parser");
-
-const app = express();
-
 const cors = require("cors");
+
+//routes
+const userRoute = require('./Routes/UsersRoute')
 
 process.env.TZ = "Asia/Kolkata";
 
@@ -17,6 +18,9 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// add routes
+app.use(userRoute)
 
 
 

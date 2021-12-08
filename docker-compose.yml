@@ -5,28 +5,20 @@ services:
     build: Database
     volumes:
       - ./Database/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
   cache:
     command: redis-server --requirepass Ashwin@123
     image: redis
-
-
-  backend:
-    build: Backend
-    depends_on: [database, cache]
-    deploy:
-      replicas: 5
     ports:
-      -8000:8000
+      - 6379:6379
 
 
-  # nginx:
-  #   build: nginx
-  #   depends_on: [backend]
+  # backend:
+  #   build: Backend
+  #   depends_on: [database, cache]
+  #   deploy:
+  #     replicas: 5
   #   ports:
-  #     - 80:80
-  #     - 443:443
-
-  #   volumes:
-  #     - ./certbot/conf:/etc/nginx/ssl
-  #     - ./certbot/data:/var/www/certbot
+  #     -8000:8000
