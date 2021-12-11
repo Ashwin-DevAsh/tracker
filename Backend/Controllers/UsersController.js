@@ -16,7 +16,8 @@ class UserController{
             })
 
         }catch(err){
-            res.status(500).json({
+            console.log(err)
+            res.status(200).json({
                 isSuccess:false,
                 errorMessage:err.message
             })
@@ -40,7 +41,7 @@ class UserController{
 
         }catch(err){
             console.log(err)
-            res.status(500).json({
+            res.status(200).json({
                 isSuccess:false,
                 errorMessage:err.message
             })
@@ -62,7 +63,8 @@ class UserController{
             })
 
         }catch(err){
-            res.status(500).json({
+            console.log(err)
+            res.status(200).json({
                 isSuccess:false,
                 errorMessage:err.message
             })

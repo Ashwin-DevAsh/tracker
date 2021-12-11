@@ -10,12 +10,13 @@ const userRoute = require('./Routes/UsersRoute')
 
 process.env.TZ = "Asia/Kolkata";
 
-var corsOptions = {
+
+app.use(cors({
   origin: "*",
   optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
+  credentials:true,
+  allowedHeaders:"*"
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

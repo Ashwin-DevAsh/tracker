@@ -33,7 +33,10 @@ class UserService{
           email: user.email,
           id: user.id
         },
-        process.env.PRIVATE_KEY
+        process.env.PRIVATE_KEY,
+        {
+            expiresIn: '24h' 
+        }
       );
       return token
     }
@@ -80,7 +83,10 @@ class UserService{
               email: user.email,
               id: user.id
             },
-            process.env.PRIVATE_KEY
+            process.env.PRIVATE_KEY,
+            {
+                expiresIn: '24h' 
+            }
         );
 
         return token

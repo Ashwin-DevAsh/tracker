@@ -28,14 +28,16 @@ $primary-color: #1c6b91;
     }
   }
 
+  .otp-container,
   .login-container,
   .signup-container {
-    // height: 500px;
+    height: 600px;
     width: 400px;
     background-color: black;
     border-radius: 11px;
     background: #ffffff;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     // box-shadow: 19px 19px 38px #dedede, -19px -19px 38px #ffffff;
 
@@ -53,6 +55,7 @@ $primary-color: #1c6b91;
       margin-top: 25px;
     }
 
+    #resend-otp,
     #forgot-password {
       font-size: 18px;
       margin-top: 20px;
@@ -60,6 +63,7 @@ $primary-color: #1c6b91;
       cursor: pointer;
     }
 
+    #confirm-button,
     #login-button,
     #signup-button {
       height: 45px;
@@ -115,6 +119,10 @@ $primary-color: #1c6b91;
         }
       }
     }
+  }
+
+  .otp-container {
+    align-items: center;
   }
 
   .signup-container {

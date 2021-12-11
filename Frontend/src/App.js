@@ -1,10 +1,14 @@
 import './App.scss';
-import Login from './Pages/registeration/login';
-import { Routes, Route, Link } from "react-router-dom";
-
+import { Routes, Route, Link,Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material';
-import Signup from './Pages/registeration/signup';
 
+import Signup from './Pages/Registeration/Signup';
+import Login from './Pages/Registeration/Login';
+import Otp from './Pages/Registeration/Otp';
+import Home from './Pages/Home/Home';
+import AuthService from './Services/AuthService';
+
+const authService = new AuthService()
 
 const theme = createTheme({
   palette: {
@@ -22,6 +26,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/otpVerification" element={<Otp />} />
+          <Route path="/*" element={<Home />} />
         </Routes>
       </div>
     </ThemeProvider>
