@@ -1,8 +1,22 @@
+import { 
+    CLEAR_SIGNUP_STATUS,
+    SET_OTP_STATUS,
+    SET_SIGNIN_STATUS, 
+    SET_SIGNUP_STATUS, 
+    SIGNIN, SIGNUP, UPDATE_SIGNIN_EMAIL,
+    UPDATE_SIGNIN_PASSWORD, 
+    UPDATE_SIGNUP_EMAIL,
+    UPDATE_SIGNUP_NAME,
+    UPDATE_SIGNUP_PASSWORD, 
+    UPDATE_SIGNUP_PHONENUMBER, 
+    VERIFY_OTP
+} from "../Reducers/RegisterationReducer/types"
+
 // sign in action
 export const updateSigninEmail = (email)=>{
     return (dispatch)=>{
         dispatch({
-            type:'updateSigninEmail',
+            type:UPDATE_SIGNIN_EMAIL,
             payload:email
         })
     }
@@ -11,18 +25,37 @@ export const updateSigninEmail = (email)=>{
 export const updateSigninPassword = (password)=>{
     return (dispatch)=>{
         dispatch({
-            type:'updateSigninPassword',
+            type:UPDATE_SIGNIN_PASSWORD,
             payload:password
         })
     }
 }
+
+export const setSigninStatus = (response)=>{
+    return (dispatch)=>{
+        dispatch({
+            type:SET_SIGNIN_STATUS,
+            payload:response
+        })
+    }
+}
+
+export const signin = (email,password)=>{
+    return (dispatch)=>{
+        dispatch({
+            type:SIGNIN,
+            payload:{email,password}
+        })
+    }
+}
+
 
 
 // sign up action
 export const updateSignupName = (name)=>{
     return (dispatch)=>{
         dispatch({
-            type:'updateSignupName',
+            type:UPDATE_SIGNUP_NAME,
             payload:name
         })
     }
@@ -31,7 +64,7 @@ export const updateSignupName = (name)=>{
 export const updateSignupPhoneNumber = (phoneNumber)=>{
     return (dispatch)=>{
         dispatch({
-            type:'updateSignupPhoneNumber',
+            type:UPDATE_SIGNUP_PHONENUMBER,
             payload:phoneNumber
         })
     }
@@ -41,7 +74,7 @@ export const updateSignupPhoneNumber = (phoneNumber)=>{
 export const updateSignupEmail = (email)=>{
     return (dispatch)=>{
         dispatch({
-            type:'updateSignupEmail',
+            type:UPDATE_SIGNUP_EMAIL,
             payload:email
         })
     }
@@ -50,8 +83,55 @@ export const updateSignupEmail = (email)=>{
 export const updateSignupPassword = (password)=>{
     return (dispatch)=>{
         dispatch({
-            type:'updateSignupPassword',
+            type:UPDATE_SIGNUP_PASSWORD,
             payload:password
+        })
+    }
+}
+
+export const setSignupStatus = (response)=>{
+    return (dispatch)=>{
+        dispatch({
+            type:SET_SIGNUP_STATUS,
+            payload:response
+        })
+    }
+}
+
+export const clearSignupStatus = ()=>{
+    return (dispatch)=>{
+        dispatch({
+            type:CLEAR_SIGNUP_STATUS
+        })
+    }
+}
+
+
+export const signup = (name,phoneNumber,email,password)=>{
+    return (dispatch)=>{
+        dispatch({
+            type:SIGNUP,
+            payload:{name,phoneNumber,email,password}
+        })
+    }
+}
+
+export const verifyOtp = (email,otp)=>{
+    console.log('verifig otp')
+    return (dispatch)=>{
+        dispatch({
+            type:VERIFY_OTP,
+            payload:{email,otp}
+        })
+    }
+}
+
+export const setOtpStatus = (response)=>{
+    console.log('setting otp status')
+    return (dispatch)=>{
+        dispatch({
+            type:SET_OTP_STATUS,
+            payload:response
         })
     }
 }

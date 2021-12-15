@@ -22,6 +22,8 @@ function Signup() {
     const navigate = useNavigate()
 
     const [isLoading, setIsLoading] = useState(true)
+    const {name,email,phoneNumber,password,signupStatus} = useSelector(state => state.registerationState.signup)
+
 
 
     const isSessionAlive = async()=>{
@@ -43,13 +45,28 @@ function Signup() {
         init()
     },[])
 
-    const {name,email,phoneNumber,password} = useSelector(state => state.registerationState.signup)
+    useEffect(()=>{
+        console.log(signupStatus)
+        if(signupStatus){
+            if(signupStatus.isSuccess){
+                navigate('/otpverification')
+                clearSignupStatus()
+            }else if(signupStatus.errorMessage == 'email_already_exist'){
+                setEmailError("Already Exist")   
+            }else if(signupStatus.errorMessage == "phonenumber_already_exist"){
+                setPhoneNumberError("Already Exist")   
+            }
+        }
+    },[signupStatus])
+
 
     const {
         updateSignupEmail,
         updateSignupPassword,
         updateSignupName,
-        updateSignupPhoneNumber
+        updateSignupPhoneNumber,
+        signup,
+        clearSignupStatus
     } = bindActionCreators(actionCreators,useDispatch())
  
 
@@ -59,7 +76,7 @@ function Signup() {
     const [phoneNumberError,setPhoneNumberError] = useState(null)
     const [passwordError,setPasswordError] = useState(null)
 
-    const signup = async()=>{
+    const validate = async()=>{
         var hasError = false
         if(name.length<3){
             setNameError("Invalid name")
@@ -100,15 +117,7 @@ function Signup() {
             return
         }
 
-        const result = await authService.getOtp(name,email,phoneNumber,password)
-
-        if(result.isSuccess){
-            navigate('/otpverification')
-        }else if(result.errorMessage == 'email_already_exist'){
-              setEmailError("Already Exist")   
-        }else if(result.errorMessage == "phonenumber_already_exist"){
-              setPhoneNumberError("Already Exist")   
-        }
+        signup(name,phoneNumber,email,password)
     }
 
 
@@ -173,7 +182,7 @@ function Signup() {
                     label="Password"
                     // type="password"
                     variant="outlined" />
-                <Button onClick={signup} id="signup-button" variant="contained">Sign up</Button>
+                <Button onClick={validate} id="signup-button" variant="contained">Sign up</Button>
                 <h3 id="underline">or</h3>
                 <div className="signin-link">
                     <h4>Have an account? <Link className="link" to={{pathname: "/login",}} >  Sign in</Link></h4>

@@ -14,6 +14,7 @@ create table initiatives(
       images varchar[],
       created_at timestamp WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       initiated_by varchar,
+      status varchar,
       CONSTRAINT fk_initiatives_initiated_by FOREIGN KEY(initiated_by) references users(id)
 );
 
@@ -65,4 +66,16 @@ create table comments(
       CONSTRAINT fk_comments_commented_for FOREIGN KEY(commented_for) references contributions(id),
       CONSTRAINT fk_comments_commented_by FOREIGN KEY(commented_by) references users(id)
 );
+
+
+create table otp(
+      id varchar primary key DEFAULT gen_random_uuid(),
+      otp int,
+      otp_for varchar,
+      email varchar,
+      payload json,
+      tries int DEFAULT 0,
+      created_at timestamp WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 

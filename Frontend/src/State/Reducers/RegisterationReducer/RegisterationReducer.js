@@ -1,8 +1,21 @@
+import {
+    CLEAR_SIGNUP_STATUS,
+    SET_OTP_STATUS, 
+    SET_SIGNIN_STATUS, 
+    SET_SIGNUP_STATUS, 
+    UPDATE_SIGNIN_EMAIL, 
+    UPDATE_SIGNIN_PASSWORD, 
+    UPDATE_SIGNUP_EMAIL, 
+    UPDATE_SIGNUP_NAME,
+    UPDATE_SIGNUP_PASSWORD, 
+    UPDATE_SIGNUP_PHONENUMBER
+} from './types'
+
 const initialState = { 
     signin:{
         email:"",
         password:"",
-        signStatus:null
+        signinStatus:null
     },
     signup:{
         name:"",
@@ -10,6 +23,9 @@ const initialState = {
         password:"",
         phoneNumber:"",
         signupStatus:null
+    },
+    otp:{
+        otpStatus:null
     }
  }
 
@@ -18,7 +34,7 @@ function RegisterationReducer(state = initialState, action) {
   switch (action.type) {
 
     // signin states
-    case 'updateSigninEmail':
+    case UPDATE_SIGNIN_EMAIL:
       return {
            ...state, 
            signin:{
@@ -27,7 +43,7 @@ function RegisterationReducer(state = initialState, action) {
            }
         }
 
-    case 'updateSigninPassword':
+    case UPDATE_SIGNIN_PASSWORD:
             return {
                  ...state,
                  signin:{
@@ -35,9 +51,17 @@ function RegisterationReducer(state = initialState, action) {
                      password:action.payload
                  }
               }
+    case SET_SIGNIN_STATUS:
+        return {
+                ...state,
+                signin:{
+                    ...state.signin,
+                    signinStatus:action.payload
+                }
+            }
 
     // signup states
-    case 'updateSignupEmail':
+    case UPDATE_SIGNUP_EMAIL:
         return {
                 ...state, 
                 signup:{
@@ -46,7 +70,7 @@ function RegisterationReducer(state = initialState, action) {
                 }
             }
     
-    case 'updateSignupPassword':
+    case UPDATE_SIGNUP_PASSWORD:
         return {
                 ...state, 
                 signup:{
@@ -54,7 +78,7 @@ function RegisterationReducer(state = initialState, action) {
                     password:action.payload
                 }
             }
-    case 'updateSignupName':
+    case UPDATE_SIGNUP_NAME:
         return {
                 ...state, 
                 signup:{
@@ -62,12 +86,36 @@ function RegisterationReducer(state = initialState, action) {
                     name:action.payload
                 }
             }
-    case 'updateSignupPhoneNumber':
+    case UPDATE_SIGNUP_PHONENUMBER:
         return {
                 ...state, 
                 signup:{
                     ...state.signup,
                     phoneNumber:action.payload
+                }
+            }
+    case SET_SIGNUP_STATUS:
+        return {
+                ...state,
+                signup:{
+                    ...state.signup,
+                    signupStatus:action.payload
+                }
+            }
+    case CLEAR_SIGNUP_STATUS:
+        return {
+                ...state,
+                signup:{
+                    ...state.signup,
+                    signupStatus:null
+                }
+            }
+    case SET_OTP_STATUS:
+        return {
+                ...state,
+                otp:{
+                    ...state.otp,
+                    otpStatus:action.payload
                 }
             }
     default:

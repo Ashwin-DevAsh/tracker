@@ -17,8 +17,8 @@ import Loader from '../../Components/Loader'
 
 
 function Login() {
-   const {email,password} = useSelector(state => state.registerationState.signin) 
-   const {updateSigninEmail,updateSigninPassword} = bindActionCreators(actionsCreators,useDispatch())
+   const {email,password,signinStatus} = useSelector(state => state.registerationState.signin) 
+   const {updateSigninEmail,updateSigninPassword,signin} = bindActionCreators(actionsCreators,useDispatch())
    const authService = new AuthService() 
    const [emailError, setEmailError] = useState(null)
    const [passwordError, setPasswordError] = useState(null)
@@ -33,6 +33,7 @@ function Login() {
     }
 
     const init = async ()=>{
+        console.log('calling init')
         setTimeout(()=>{
             isSessionAlive()
             setTimeout(()=>{
@@ -44,6 +45,24 @@ function Login() {
     useEffect(()=>{
         init()
     },[])
+
+    useEffect(()=>{
+        monitorSigninStatus()
+    },[signinStatus])
+
+
+   const monitorSigninStatus = ()=>{
+        if(signinStatus){
+            if(signinStatus.isSuccess){
+                navigate('/',{replace:true})
+            }
+            else if(signinStatus.errorMessage=="invalid_password"){
+                setPasswordError("Invalid password")
+            }else if(signinStatus.errorMessage=="user_not_found"){
+                setEmailError("Invalid email")
+            }
+        }
+   } 
 
 
 
@@ -66,20 +85,10 @@ function Login() {
       if(hasError){
           return
       }
-
-      const result = await authService.login(email,password)
-
-      if(result.isSuccess){
-          navigate('/home',{replace:true})
-      }else{
-          if(result.errorMessage == 'invalid_password'){
-             setPasswordError("Incorrect password")
-          }else if (result.errorMessage = 'user_not_fount'){
-             setEmailError("Invalid user")
-          }
-      }
-
+      signin(email,password)
    }
+
+
 
    if(isLoading){
        return <Loader/>

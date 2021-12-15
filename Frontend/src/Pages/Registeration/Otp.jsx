@@ -6,8 +6,10 @@ import AuthService from '../../Services/AuthService';
 import RegisterationHeader from '../../Components/RegisterationHeader';
 import OtpInput from 'react-otp-input';
 import {useState,useEffect} from 'react'
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {useNavigate} from 'react-router-dom'
+import * as actionCreators from '../../State/ActionsCreators/RegisterationAction'
 
 
 
@@ -16,8 +18,9 @@ function Otp() {
    const authService = new AuthService() 
    const [otp, setOtp] = useState("")
    const [otpError,setOtpError] = useState(null)
-   const {email} = useSelector(state => state.registerationState.signup)
+   const {signup:{email},otp:{otpStatus}} = useSelector(state => state.registerationState)
    const navigate = useNavigate()
+   const {verifyOtp} = bindActionCreators(actionCreators,useDispatch())
 
    useEffect(() => {
        if(!email){
@@ -28,7 +31,18 @@ function Otp() {
        }
    }, [])
 
-   const verifyOtp = async ()=>{
+   useEffect(()=>{
+       console.log(otpStatus)
+       if(otpStatus){
+            if(otpStatus.isSuccess){
+               navigate('/home',{replace:true})
+            }else{
+               setOtpError('Invalid otp')
+            }
+       }
+   },[otpStatus])
+
+   const validate = async ()=>{
        var hasError = false
        if(otp.length != 4){
             hasError=true
@@ -45,12 +59,8 @@ function Otp() {
        if(hasError){
            return
        }
-       const result = await authService.verifyOtp(email,parseInt(otp))
-       if(result.isSuccess){
-          navigate('/home',{replace:true})
-       }else{
-          setOtpError('Invalid otp')
-       }
+       verifyOtp(email,parseInt(otp))
+
    }
 
 
@@ -73,7 +83,7 @@ function Otp() {
                 />
                 <Button
                      onClick={() => {
-                         verifyOtp()
+                        validate()
                       }}
                     id="confirm-button" 
                     variant="contained">
