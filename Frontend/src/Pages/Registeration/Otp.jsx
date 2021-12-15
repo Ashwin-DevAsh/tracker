@@ -42,7 +42,6 @@ function Otp() {
                 setOtpError('Invalid otp')
             }
        }
-
        if(hasError){
            return
        }
@@ -86,8 +85,6 @@ function Otp() {
                 </div>
             </div>
             <RegisterationFooter/>
-
-        
         </div>
    )
     

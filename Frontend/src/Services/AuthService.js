@@ -57,7 +57,20 @@ class AuthService{
 
     isSessionAlive = async () => {
         const token = localStorage.getItem('token')
-        return token?true:false
+        if(!token){
+            return false
+        }
+
+        const endpoint = `${this.url}/isSessionAlive`
+        const result = await axios.post(
+            endpoint,
+            {
+                token
+            },
+            this.headers
+        )
+        console.log(result)
+        return (result.data.isSuccess && result.data.isSessionAlive)
     }
 
 }

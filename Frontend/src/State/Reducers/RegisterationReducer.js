@@ -9,7 +9,7 @@ const initialState = {
         email:"",
         password:"",
         phoneNumber:"",
-        signupstatus:null
+        signupStatus:null
     }
  }
 

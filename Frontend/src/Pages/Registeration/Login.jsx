@@ -10,6 +10,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import {bindActionCreators} from 'redux'
 import * as actionsCreators from '../../State/ActionsCreators/RegisterationAction'
 import {useNavigate} from 'react-router-dom'
+import {useEffect} from 'react'
+import Loader from '../../Components/Loader'
 
 
 
@@ -21,7 +23,27 @@ function Login() {
    const [emailError, setEmailError] = useState(null)
    const [passwordError, setPasswordError] = useState(null)
    const navigate = useNavigate()
+   const [isLoading, setIsLoading] = useState(true)
 
+
+    const isSessionAlive = async()=>{
+        if(await authService.isSessionAlive()){
+            navigate('/')
+        }
+    }
+
+    const init = async ()=>{
+        setTimeout(()=>{
+            isSessionAlive()
+            setTimeout(()=>{
+              setIsLoading(false)
+            },500)
+        },1000)
+    }
+
+    useEffect(()=>{
+        init()
+    },[])
 
 
 
@@ -57,6 +79,10 @@ function Login() {
           }
       }
 
+   }
+
+   if(isLoading){
+       return <Loader/>
    }
     
    return(
@@ -112,9 +138,6 @@ function Login() {
 
             </div>
             <RegisterationFooter/>
-
-
-        
         </div>
    )
     

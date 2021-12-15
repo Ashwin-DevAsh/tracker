@@ -10,12 +10,38 @@ import AuthService from '../../Services/AuthService';
 import {useSelector,useDispatch} from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../../State/ActionsCreators/RegisterationAction'
+import {useEffect} from 'react'
+import Loader from '../../Components/Loader'
+
+
 
 function Signup() {
 
     const authService = new AuthService()
 
     const navigate = useNavigate()
+
+    const [isLoading, setIsLoading] = useState(true)
+
+
+    const isSessionAlive = async()=>{
+        if(await authService.isSessionAlive()){
+            navigate('/')
+        }
+    }
+
+    const init = async ()=>{
+        setTimeout(()=>{
+            isSessionAlive()
+            setTimeout(()=>{
+              setIsLoading(false)
+            },500)
+        },1000)
+    }
+
+    useEffect(()=>{
+        init()
+    },[])
 
     const {name,email,phoneNumber,password} = useSelector(state => state.registerationState.signup)
 
@@ -25,8 +51,6 @@ function Signup() {
         updateSignupName,
         updateSignupPhoneNumber
     } = bindActionCreators(actionCreators,useDispatch())
-
-
  
 
 
@@ -80,10 +104,18 @@ function Signup() {
 
         if(result.isSuccess){
             navigate('/otpverification')
-        }else{
-            
+        }else if(result.errorMessage == 'email_already_exist'){
+              setEmailError("Already Exist")   
+        }else if(result.errorMessage == "phonenumber_already_exist"){
+              setPhoneNumberError("Already Exist")   
         }
     }
+
+
+    if(isLoading){
+        return <Loader/>
+    }
+     
 
 
 
@@ -141,22 +173,13 @@ function Signup() {
                     label="Password"
                     // type="password"
                     variant="outlined" />
-
-
                 <Button onClick={signup} id="signup-button" variant="contained">Sign up</Button>
-
                 <h3 id="underline">or</h3>
-
                 <div className="signin-link">
                     <h4>Have an account? <Link className="link" to={{pathname: "/login",}} >  Sign in</Link></h4>
                 </div>
-
             </div>
-
             <RegisterationFooter/>
-
-
-        
         </div>
     )
 }
