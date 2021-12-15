@@ -2,8 +2,8 @@ const nodemailer = require("nodemailer");
 
 
 module.exports = class EmailService{
-     myEmail = "";
-     myPassword = "";
+     myEmail = "cooper.initiative@gmail.com";
+     myPassword = "Ashwin@123";
 
      transporter = nodemailer.createTransport({
         service: "gmail",
@@ -26,7 +26,7 @@ module.exports = class EmailService{
           console.log(result);
           return true;
         } catch (e) {
-          // console.log(e);
+          console.log(e);
           return false;
         }
       }

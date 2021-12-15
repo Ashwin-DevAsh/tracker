@@ -72,6 +72,29 @@ class UserController{
 
     }
 
+
+    isSessionAlive = async (req,res)=>{
+        try{
+            const {token} = req.body
+            if(!token){
+                throw Error("invalid_body")
+            }
+            const isSessionAlive =  await this.userService.isSessionAlive(token)
+            res.status(200).json({
+                isSuccess:true,
+                isSessionAlive
+            })
+
+        }catch(err){
+            console.log(err)
+            res.status(200).json({
+                isSuccess:false,
+                errorMessage:err.message
+            })
+        }
+
+    }
+
 }
 
 module.exports = UserController

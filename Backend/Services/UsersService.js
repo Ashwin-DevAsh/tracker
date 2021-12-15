@@ -42,6 +42,17 @@ class UserService{
     }
 
     getOtp = async(name,password,email,phoneNumber)=>{
+        var isEmailExist = await this.users.getUserByEmail(email)
+        if(isEmailExist){
+            throw Error("email_already_exist")
+        }
+
+        var isPhoneNumberExist = await this.users.getUserByPhoneNumber(phoneNumber)
+        if(isPhoneNumberExist){
+            throw Error("phonenumber_already_exist")
+        }
+
+
         var otpNumber = Math.floor(1000 + Math.random() * 9000);
         this.emailService.sendMail(
             "Otp Verification",
@@ -61,11 +72,11 @@ class UserService{
     }
 
     signup = async(email,otpNumber)=>{
-        const otpData = await this.otp.checkOtpDataExist(email)
+        const otpData = await this.otp.checkOtpDataExist(email,'signup')
         if(!otpData){
             throw Error("otp_not_exist")
         }
-        const {user,otp,otpFor,tries} = otpData
+        const {payload:user,otp,otp_for:otpFor,tries} = otpData
         if(otp!=otpNumber || otpFor !='signup'){
             throw Error("invalid_otp")
         }
@@ -74,7 +85,7 @@ class UserService{
             throw Error("more_attempt")
         }
         await this.users.insertUser(user.name,user.phoneNumber,user.email,user.password)
-        await this.otp.deleteOtpData(email)
+        await this.otp.deleteOtpData(email,'signup')
 
         var token = jwt.sign(
             {
@@ -91,6 +102,17 @@ class UserService{
 
         return token
 
+    }
+
+    isSessionAlive = async(token)=>{
+        var email = await jwt.verify(token,process.env.PRIVATE_KEY).email
+        var user = await this.users.getUserByEmail(email)
+        console.log("user =",user)
+        if(user){
+            return true
+        }else{
+            return false
+        }
     }
     
 }

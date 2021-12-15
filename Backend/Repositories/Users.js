@@ -39,6 +39,23 @@ class Users{
         }
       };
 
+      getUserByPhoneNumber = async (phoneNumber) => {
+        var postgres = await this.pool.connect();
+        try {
+          var user = await postgres.query(
+            "select * from users where phone_number = $1",[phoneNumber]
+          );
+          user = user.rows[0];
+          postgres.release();
+          return user;
+        } catch (e) {
+          postgres.release();
+          console.log(e);
+          throw Error(e.message);
+
+        }
+      };
+
     
     insertUser = async (name,phoneNumber,email,password) => {
         var postgres = await this.pool.connect();
