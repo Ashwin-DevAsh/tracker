@@ -105,6 +105,7 @@ class UserService{
     }
 
     isSessionAlive = async(token)=>{
+        console.log("token = ",token)
         var email = await jwt.verify(token,process.env.PRIVATE_KEY).email
         var user = await this.users.getUserByEmail(email)
         console.log("user =",user)
@@ -114,6 +115,18 @@ class UserService{
             return false
         }
     }
+
+    getUserFromtoken = async(token)=>{
+        var email = await jwt.verify(token,process.env.PRIVATE_KEY).email
+        var user = await this.users.getUserByEmail(email)
+        console.log("user =",user)
+        if(user){
+            return user
+        }else{
+            return null
+        }
+    }
+    
     
 }
 

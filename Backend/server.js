@@ -7,6 +7,8 @@ const cors = require("cors");
 
 //routes
 const userRoute = require('./Routes/UsersRoute')
+const initiativeRoute = require('./Routes/InitiativeRoute')
+
 
 process.env.TZ = "Asia/Kolkata";
 
@@ -22,6 +24,8 @@ app.use(bodyParser.json());
 
 // add routes
 app.use(userRoute)
+app.use(initiativeRoute)
+
 
 
 
