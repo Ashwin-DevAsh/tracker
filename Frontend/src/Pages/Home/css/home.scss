@@ -3,7 +3,7 @@ $secondary-color: #ffffff;
 
 .home-container {
   min-height: 100vh;
-  width: 100;
+  width: 100%;
   height: 900px;
   display: flex;
   overflow: auto;
@@ -15,6 +15,11 @@ $secondary-color: #ffffff;
   header {
     height: 75px;
     width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
     border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     background-color: $secondary-color;
     display: flex;
@@ -89,4 +94,62 @@ $secondary-color: #ffffff;
       height: 40px;
     }
   }
+}
+
+.initiative-container {
+  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  // height: 600px;
+  width: 100%;
+  background-color: $secondary-color;
+  margin: 20px;
+  margin-top: 30px;
+  position: relative;
+
+  .header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+    height: 60px;
+    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  }
+
+  .content {
+    margin-top: 60px;
+    padding: 20px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-bottom: 30px;
+
+    h4 {
+      margin-right: 20px;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+  }
+}
+
+.page-holder {
+  margin: auto;
+  width: 1250px;
+  margin-top: 75px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.initiative-page {
+  width: 60%;
+  height: 100%;
 }

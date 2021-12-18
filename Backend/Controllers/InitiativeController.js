@@ -27,6 +27,22 @@ class UserController{
             })
         }
     }
+
+    getAllInitiative = async (req,res)=>{
+        try{
+            const initiatives = await this.initiativeService.getAllInitiative()
+            res.status(200).json({
+                isSuccess:true,
+                initiatives
+            })
+        }catch(err){
+            console.log(err)
+            res.status(200).json({
+                isSuccess:false,
+                errorMessage:err.message
+            })
+        }
+    }
 }
 
 module.exports = UserController

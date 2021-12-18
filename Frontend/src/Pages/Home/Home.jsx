@@ -11,11 +11,14 @@ import {GrNotification} from 'react-icons/gr'
 
 import avatar from '../../Assets/avatar.jpg'
 
+import InitiativePage from './InitiativePage'
 
 function Home() {
 
     const authService = new AuthService()
     const navigate = useNavigate()
+
+ 
 
     const isSessionAlive = async()=>{
         if(! await authService.isSessionAlive()){
@@ -26,6 +29,7 @@ function Home() {
     useEffect(()=>{
         isSessionAlive()
     },[])
+
 
     return (
         <div className="home-container">
@@ -71,6 +75,15 @@ function Home() {
                 </div>
                 
             </header>
+
+            <div className="page-holder">
+
+                <InitiativePage/>
+
+            </div>
+
+            
+
 
         </div>
     )

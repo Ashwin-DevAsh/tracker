@@ -10,6 +10,11 @@ class InitiativeService{
         return id
     }
 
+    getAllInitiative = async()=>{
+        const initiatives =  await this.initiative.getAllInitiatives()
+        return initiatives
+    }
+
 }
 
 module.exports = InitiativeService

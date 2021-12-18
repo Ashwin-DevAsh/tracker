@@ -3,10 +3,6 @@ import { ApiConfig } from '../../../Config/ApiConfig'
 
 const baseUrl = ApiConfig.Url
 
-const headers = {
-    'Content-Type': 'application/json'
-}
-
 export function login(email,password){
     const endPoint = `${baseUrl}/login`
     return axios.post(
@@ -15,7 +11,6 @@ export function login(email,password){
             email,
             password
         },
-        headers
     )
 }
 
@@ -29,7 +24,6 @@ export function getOtp(email,password,name,phoneNumber){
             name,
             phoneNumber
         },
-        headers
     )
 }
 
@@ -41,6 +35,5 @@ export function verifyOtp(email,otp){
             email,
             otp
         },
-        headers
     )
 }

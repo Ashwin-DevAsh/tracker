@@ -7,8 +7,10 @@ class InitiativeService{
         const token = req.get("token")
         const isAlive = await  this.userService.isSessionAlive(token)
         if(isAlive){
+             console.log("session alive")
              next()
         }else{
+            console.log("session not alive")
             res.status(401).json({
                 isSuccess:false,
             })
