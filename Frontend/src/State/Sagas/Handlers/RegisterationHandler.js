@@ -1,6 +1,6 @@
 import {call,put} from 'redux-saga/effects'
-import {getOtp, login, verifyOtp} from '../Requests/RegisterationRequest'
-import {setOtpStatus, setSigninStatus, setSignupStatus} from '../../ActionsCreators/RegisterationAction'
+import {getOtp, login, verifyOtp, getUser} from '../Requests/RegisterationRequest'
+import {setOtpStatus, setSigninStatus, setSignupStatus, setUser} from '../../ActionsCreators/RegisterationAction'
 
 export function* handleLogin(action){
       try{
@@ -8,8 +8,8 @@ export function* handleLogin(action){
           const response = yield call(()=>login(action.payload.email,action.payload.password))
           const {data} = response
           console.log(data)
-          if(data.token){
-              localStorage.setItem('token',data.token)
+          if(data.isSuccess){
+             localStorage.setItem('token',data.result.token)
           }
           yield put(setSigninStatus(data))
       }catch(e){
@@ -44,11 +44,23 @@ export function* handelVerifyOtp(action){
         ))
         console.log(response)
         const {data} = response
-        if(data.token){
-            localStorage.setItem('token',data.token)
+        if(data.isSuccess){
+            localStorage.setItem('token',data.result.token)
         }
         yield put(setOtpStatus(data))
     }catch(e){
         console.log('error',e)
+    }
+}
+
+export function* handelGetUser(action){
+    console.log("getting user")
+    try{
+        const response = yield call(getUser)
+        console.log("user response = ", response)
+        const {data} = response
+        yield put(setUser(data))
+    }catch(e){
+        console.log('get user error',e)
     }
 }

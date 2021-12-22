@@ -4,31 +4,54 @@ import { useNavigate } from "react-router"
 import AuthService from "../../Services/AuthService"
 import mrCooper from '../../Assets/mr_cooper.png'
 import {TextField} from '@mui/material'
-import { AiOutlineHome } from "react-icons/ai";
-import {BiCategory} from "react-icons/bi"
-import {BsCalendarEvent} from 'react-icons/bs'
-import {GrNotification} from 'react-icons/gr'
 
-import avatar from '../../Assets/avatar.jpg'
-
+import * as registerationActionCreater from '../../State/ActionsCreators/RegisterationAction'
 import InitiativePage from './InitiativePage'
+import ProfilePage from './ProfilePage'
+import {bindActionCreators} from 'redux'
+import {useDispatch,useSelector} from 'react-redux'
+import {useState} from 'react'
+import Loader from '../../Components/Loader'
+
 
 function Home() {
 
     const authService = new AuthService()
     const navigate = useNavigate()
 
+    const {getUser} = bindActionCreators(registerationActionCreater,useDispatch())
+    const {user} = useSelector(state => state.registerationState) 
+
+    const [isLoaded, setIsLoaded] = useState(false)
+
+
  
 
     const isSessionAlive = async()=>{
         if(! await authService.isSessionAlive()){
             navigate('/login')
+        }else{
+            getUser()
         }
     }
 
     useEffect(()=>{
         isSessionAlive()
     },[])
+
+    useEffect(()=>{
+        if(user!=null){
+            setTimeout(()=>{
+                setIsLoaded(true)
+
+            },1000)
+        }
+    },[user])
+
+    if(!isLoaded){
+        return <Loader/>
+    }
+
 
 
     return (
@@ -41,44 +64,16 @@ function Home() {
                 </div>
                 <div className="right-section">
                     <TextField
-                        size='small' placeholder="search..." />
-                    
-                    <div className="icon-sections">
-                        <div className="icon-holder" style={{opacity:1}} >
-                          < AiOutlineHome size={25}  />
-                          <div className="section-selector"></div>
-                          {/* <h5>Home</h5> */}
-                        </div>
-
-                        <div className="icon-holder" >
-                          < BiCategory size={25}  />
-                          {/* <h5>Contribution</h5> */}
-                        </div>
-
-                        <div className="icon-holder" >
-                          < BsCalendarEvent size={25}  />
-                          {/* <h5>Activities</h5> */}
-                        </div>
-
-                        <div className="icon-holder" >
-                          < GrNotification size={25}  />
-                          {/* <h5>Notifications</h5> */}
-                        </div>
-                        
-                        <div className="profile-holder">
-                            <img src={avatar}/>
-                        </div>
-                        
-                        
-                    </div>
+                        size='small'  placeholder="search..." />
+            
                 </div>
                 </div>
                 
             </header>
 
             <div className="page-holder">
-
                 <InitiativePage/>
+                <ProfilePage/>
 
             </div>
 

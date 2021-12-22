@@ -37,3 +37,15 @@ export function verifyOtp(email,otp){
         },
     )
 }
+
+export function getUser(){
+    console.log("getting user request")
+    const endPoint = `${baseUrl}/getUser`
+    return axios.get(
+        endPoint,
+        {
+            headers:{token:localStorage.getItem('token')}
+        }
+    )
+}
+

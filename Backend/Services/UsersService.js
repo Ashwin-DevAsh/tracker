@@ -38,7 +38,13 @@ class UserService{
             expiresIn: '24h' 
         }
       );
-      return token
+      return   {
+        name: user.name,
+        number: user.phone_number,
+        email: user.email,
+        id: user.id,
+        token
+      }
     }
 
     getOtp = async(name,password,email,phoneNumber)=>{
@@ -100,7 +106,13 @@ class UserService{
             }
         );
 
-        return token
+        return {
+            name: user.name,
+            number: user.phone_number,
+            email: user.email,
+            id: user.id,
+            token
+        }
 
     }
 

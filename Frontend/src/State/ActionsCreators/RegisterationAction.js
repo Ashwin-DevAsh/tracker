@@ -9,7 +9,9 @@ import {
     UPDATE_SIGNUP_NAME,
     UPDATE_SIGNUP_PASSWORD, 
     UPDATE_SIGNUP_PHONENUMBER, 
-    VERIFY_OTP
+    VERIFY_OTP,
+    SET_USER,
+    GET_USER
 } from "../Reducers/RegisterationReducer/types"
 
 // sign in action
@@ -132,6 +134,26 @@ export const setOtpStatus = (response)=>{
         dispatch({
             type:SET_OTP_STATUS,
             payload:response
+        })
+    }
+}
+
+
+export const setUser = (response)=>{
+    console.log("setting user",response)
+    return (dispatch)=>{
+        dispatch({
+            type:SET_USER,
+            payload:response
+        })
+    }
+}
+
+export const getUser = ()=>{
+    console.log("get user")
+    return (dispatch)=>{
+        dispatch({
+            type:GET_USER,
         })
     }
 }

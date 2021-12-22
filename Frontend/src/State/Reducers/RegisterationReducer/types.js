@@ -18,6 +18,12 @@ export const VERIFY_OTP = "verifyOtp"
 export const SET_OTP_STATUS = "setOtpStatus"
 
 
+//get user
+export const GET_USER = "getUser"
+export const SET_USER = "setUser"
+
+
+
 
 
 

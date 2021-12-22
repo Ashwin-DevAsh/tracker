@@ -3,13 +3,24 @@ import { bindActionCreators } from 'redux'
 import * as initiativeActionCreater from '../../State/ActionsCreators/InitiativeActionCreator'
 import Initiative from '../../Components/Initiative'
 import {useEffect} from 'react'
+import AuthService from "../../Services/AuthService"
+import { useNavigate } from "react-router"
+
 
 function InitiativePage() {
+    const authService = new AuthService()
+
     const {getAllInitiative} = bindActionCreators(initiativeActionCreater,useDispatch())
     const {initiatives} = useSelector(state => state.initiativeState) 
+    const navigate = useNavigate()
+
+
+    
 
     useEffect(() => {
         getAllInitiative()
+
+
         return () => {
          
         }
@@ -23,6 +34,7 @@ function InitiativePage() {
                   description={value["initiative_description"]}
                   />)    
            } 
+           <div style={{height:100}} ></div>
     </div>
 }
 

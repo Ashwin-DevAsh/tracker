@@ -9,10 +9,10 @@ class UserController{
             if(!email || !password){
                 throw Error("invalid_body")
             }
-            const token =  await this.userService.login(email,password)
+            const result =  await this.userService.login(email,password)
             res.status(200).json({
                 isSuccess:true,
-                token
+                result
             })
 
         }catch(err){
@@ -55,11 +55,11 @@ class UserController{
             if(!email || !otp){
                 throw Error("invalid_body")
             }
-            const token =  await this.userService.signup(email,otp)
+            const result =  await this.userService.signup(email,otp)
             console.log(otp)
             res.status(200).json({
                 isSuccess:true,
-                token
+                result
             })
 
         }catch(err){
@@ -83,6 +83,31 @@ class UserController{
             res.status(200).json({
                 isSuccess:true,
                 isSessionAlive
+            })
+
+        }catch(err){
+            console.log(err)
+            res.status(200).json({
+                isSuccess:false,
+                errorMessage:err.message
+            })
+        }
+
+    }
+
+
+    getUser = async (req,res)=>{
+        console.log("Getting user")
+
+        try{
+            const token = req.get('token')
+            if(!token){
+                throw Error("missing_auth_token")
+            }
+            const user =  await this.userService.getUserFromtoken(token)
+            res.status(200).json({
+                isSuccess:true,
+                user
             })
 
         }catch(err){

@@ -3,6 +3,7 @@ import {
     SET_OTP_STATUS, 
     SET_SIGNIN_STATUS, 
     SET_SIGNUP_STATUS, 
+    SET_USER, 
     UPDATE_SIGNIN_EMAIL, 
     UPDATE_SIGNIN_PASSWORD, 
     UPDATE_SIGNUP_EMAIL, 
@@ -26,7 +27,8 @@ const initialState = {
     },
     otp:{
         otpStatus:null
-    }
+    },
+    user:null
  }
 
 
@@ -57,7 +59,8 @@ function RegisterationReducer(state = initialState, action) {
                 signin:{
                     ...state.signin,
                     signinStatus:action.payload
-                }
+                },
+                user:action.payload.result
             }
 
     // signup states
@@ -100,7 +103,8 @@ function RegisterationReducer(state = initialState, action) {
                 signup:{
                     ...state.signup,
                     signupStatus:action.payload
-                }
+                },
+
             }
     case CLEAR_SIGNUP_STATUS:
         return {
@@ -116,7 +120,13 @@ function RegisterationReducer(state = initialState, action) {
                 otp:{
                     ...state.otp,
                     otpStatus:action.payload
-                }
+                },
+                user:action.payload.result
+            }
+    case SET_USER:
+        return {
+                ...state,
+                user:action.payload.user
             }
     default:
       return state

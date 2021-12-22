@@ -9,7 +9,6 @@ export function* getAllInitiatives(){
         const {data} = response
         if(data.isSuccess){
            yield put(setAllInitiative(data.initiatives))
-
         }
         console.log("initiative = ",data)
 
