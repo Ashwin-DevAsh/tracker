@@ -2,15 +2,16 @@ import {useDispatch,useSelector} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as initiativeActionCreater from '../../State/ActionsCreators/InitiativeActionCreator'
 import Initiative from '../../Components/Initiative'
-import {useEffect} from 'react'
+import {useEffect,useState} from 'react'
 import Avatar from '../../Assets/avatar.jpg'
 import { Divider, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import AddInitiative from './AddInitiative'
 
 
 function ProfilePage() {
 
     const {user} = useSelector(state => state.registerationState) 
-
+    const [openAddInitiativePage, setOpenAddInitiativePage] = useState(false)
 
     useEffect(() => {
         return () => {
@@ -58,13 +59,17 @@ function ProfilePage() {
             
             </div>
 
-            <div className="new-initiative" >
+            <div onClick={()=>{
+                setOpenAddInitiativePage(true)
+            }} className="new-initiative" >
                   <h4>Start Initiative</h4>
            </div>
            
         </div>
 
-
+        {
+          openAddInitiativePage && <AddInitiative close={()=>setOpenAddInitiativePage(false)}/>
+        }
            
     </div>
 }

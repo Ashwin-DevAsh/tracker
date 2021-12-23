@@ -74,12 +74,7 @@ function Home() {
             <div className="page-holder">
                 <InitiativePage/>
                 <ProfilePage/>
-
             </div>
-
-            
-
-
         </div>
     )
 }

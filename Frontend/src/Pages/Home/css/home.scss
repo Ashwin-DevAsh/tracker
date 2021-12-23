@@ -16,11 +16,10 @@ $primary-color: #1c6b91;
   header {
     height: 75px;
     width: 100vw;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
     border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     background-color: $secondary-color;
     display: flex;
@@ -227,5 +226,46 @@ $primary-color: #1c6b91;
       font-weight: 300;
       opacity: 0.75;
     }
+  }
+}
+
+.add-initiative {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  background: rgba($color: #000000, $alpha: 0.8);
+
+  .add-initiative-form {
+    width: 450px;
+    min-height: 600px;
+    border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+    padding: 40px;
+    background-color: $secondary-color;
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      align-items: flex-start;
+    }
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .add-initiative-foorter {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: row-reverse;
   }
 }

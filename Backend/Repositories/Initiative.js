@@ -45,7 +45,10 @@ class Initiative{
                  left join 
               (select count(*) as totalcount , access_for from initiative_access where status = 'approved' group by access_for) as contributers
                   on 
-               initiatives.id = contributers.access_for`,
+               initiatives.id = contributers.access_for
+          order by initiatives.created_at desc
+               
+            `,
         )).rows;
         postgres.release();
         return initiatives
