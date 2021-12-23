@@ -14,3 +14,21 @@ export function getAllInitiative(){
        }
     )
 }
+
+export function createInitiative(name,description){
+    const endPoint = `${baseUrl}/createInitiative`
+    console.log(name,description)
+    return axios.post(
+        endPoint,
+        {
+            name,
+            description,
+            images:[]
+        },
+        {
+            headers:{
+                token : localStorage.getItem('token')
+        }
+       }
+    )
+}

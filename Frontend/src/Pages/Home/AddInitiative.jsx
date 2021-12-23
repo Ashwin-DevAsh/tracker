@@ -1,19 +1,44 @@
-import { TextField,TextareaAutosize, Button } from "@mui/material";
-import {useSelector} from 'react-redux'
+import { TextField,TextareaAutosize, Button, Snackbar,Alert } from "@mui/material";
+import {useSelector,useDispatch} from 'react-redux'
+import { bindActionCreators } from "redux";
 import Avatar from '../../Assets/avatar.jpg'
 import {AiOutlineClose} from 'react-icons/ai'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import Loader from "../../Components/Loader";
-
+import * as initiativeActionCreater from '../../State/ActionsCreators/InitiativeActionCreator'
 
  function AddInitiative({close}){
 
     const {user} = useSelector(state => state.registerationState) 
+    const {createInitiativeResponse} = useSelector(state => state.initiativeState) 
+
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     
     const [titleError, setTitleError] = useState(null)
     const [descriptionError, setDescriptionError] = useState(null)
+
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+    const [showError, setShowError] = useState(false)
+
+
+    const {createInitiative,setCreateInitiativeStatus,getAllInitiative} = bindActionCreators(initiativeActionCreater,useDispatch())
+
+    useEffect(() => {
+        
+        if(createInitiativeResponse!=null){
+            if(createInitiativeResponse.isSuccess){
+                getAllInitiative()
+                setCreateInitiativeStatus(null)
+                setTitle("")
+                setDescription("")
+                setShowSuccessMessage(true)
+            }
+        }
+
+        return () => {
+        }
+    }, [createInitiativeResponse])
 
     const validate = ()=>{
 
@@ -33,17 +58,13 @@ import Loader from "../../Components/Loader";
         }else{
             setDescriptionError(null)
         }
+
+        if(!hasError){
+            createInitiative(title,description)
+        }
         
     }
 
-    // return(
-    //     <div  className="add-initiative">
-    //         <div className="add-initiative-form" >
-    //             <Loader/>
-    //         </div>
-    //     </div>
-    // )
-    
 
     return(
         <div  className="add-initiative">
@@ -94,6 +115,18 @@ import Loader from "../../Components/Loader";
                  
                 
             </div>
+
+            <Snackbar open={showSuccessMessage} autoHideDuration={3000} onClose={()=>setShowSuccessMessage(false)}>
+                <Alert severity="success" sx={{ width: '100%' }}>
+                    Added Successfully!
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={showError} autoHideDuration={3000} onClose={()=>setShowError(false)}>
+                <Alert severity="error" sx={{ width: '100%' }}>
+                    Error!
+                </Alert>
+            </Snackbar>
             
         </div>
     )
